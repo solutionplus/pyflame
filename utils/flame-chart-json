@@ -96,6 +96,9 @@ class FCJson(object):
         for line in sys.stdin:
             # 1st line should be timestamp & 2nd line callstack
             if is_first_ln:
+                # if stdin like: "(idle) XXX", should remove "(idle)" first。
+                if 'idle' in line:
+                    line = line[:6]
                 ts = int(line)
             else:
                 cs = line
